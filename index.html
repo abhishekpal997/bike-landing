@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K Bike Mart — Verified Used Bikes</title>
+  <meta name="description" content="Find, compare and sell verified used bikes with RC checks, insurance details and trusted sellers.">
+  <meta property="og:title" content="K Bike Mart — Find Your Perfect Ride">
+  <meta property="og:description" content="India's trusted marketplace for verified used bikes.">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      --red: #ed171f;
+      --red-dark: #c90c14;
+      --ink: #101114;
+      --muted: #616773;
+      --line: #e7e9ed;
+      --soft: #f6f7f9;
+      --white: #fff;
+      --shadow: 0 14px 36px rgba(16, 17, 20, .10);
+      --radius: 16px;
+      --max: 1240px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .red { color: var(--red); }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: "";
+      display: inline-block;
+      width: 52px;
+      height: 2px;
+      margin: 0 18px 4px;
+      background: var(--red);
+      opacity: .55;
+    }
+    .section-heading { text-align: center; margin-bottom: 30px; }
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(32px, 4.1vw, 54px);
+      line-height: 1.08;
+      letter-spacing: -.045em;
+    }
+    .section-heading p { max-width: 760px; margin: 10px auto 0; color: var(--muted); font-size: 18px; }
+    .btn {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 9px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #fff; background: linear-gradient(135deg, #f52830, var(--red-dark)); box-shadow: 0 10px 24px rgba(237, 23, 31, .26); }
+    .btn-outline { color: var(--red); background: #fff; border: 1px solid var(--red); }
+    .arrow { font-size: 20px; line-height: 1; }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(14px);
+      border-top: 6px solid #111418;
+      box-shadow: 0 1px 0 rgba(0,0,0,.08);
+    }
+    .header-inner { min-height: 74px; display: flex; align-items: center; gap: 24px; }
+    .brand { width: 210px; flex: 0 0 auto; }
+    .brand img { width: 100%; height: 58px; object-fit: cover; object-position: left center; }
+    .main-nav { display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); margin-left: auto; }
+    .main-nav a { position: relative; padding: 26px 0 22px; font-size: 14px; font-weight: 650; white-space: nowrap; }
+    .main-nav a:hover, .main-nav a.active { color: var(--red); }
+    .main-nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 12px;
+      height: 3px;
+      border-radius: 5px;
+      background: var(--red);
+    }
+    .header-actions { display: flex; align-items: center; gap: 13px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .location { display: flex; gap: 7px; align-items: center; }
+    .header-sell { min-height: 42px; padding-inline: 18px; }
+    .menu-btn { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 9px; background: #fff; font-size: 22px; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 506px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 70% 10%, rgba(237,23,31,.25), transparent 30%),
+        linear-gradient(90deg, #080b0e 0%, #10151a 47%, #12171c 100%);
+      overflow: visible;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 0 40%;
+      background: linear-gradient(90deg, #10151a 0%, rgba(16,21,26,.15) 35%), url("assets/hero-bike.jpg") center right / cover no-repeat;
+      opacity: .98;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(180deg, transparent 65%, rgba(0,0,0,.65));
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; padding-top: 44px; max-width: 690px; }
+    .hero-kicker { margin: 0 0 12px; font-size: 13px; font-weight: 800; letter-spacing: .32em; text-transform: uppercase; }
+    .hero h1 { margin: 0; max-width: 650px; font-size: clamp(48px, 5.8vw, 80px); line-height: .92; letter-spacing: -.055em; text-transform: uppercase; font-style: italic; }
+    .hero h1 span { display: block; color: var(--red); }
+    .hero-sub { margin: 14px 0 22px 68px; font-size: clamp(17px, 1.7vw, 22px); }
+    .trust-row { display: flex; flex-wrap: wrap; gap: 11px; }
+    .trust-chip { display: flex; align-items: center; gap: 9px; padding: 9px 13px; border: 1px solid rgba(255,255,255,.24); border-radius: 30px; background: rgba(0,0,0,.28); font-size: 13px; font-weight: 700; }
+    .trust-icon { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--red); }
+
+    .search-shell {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      bottom: -78px;
+      transform: translateX(-50%);
+      width: min(calc(100% - 40px), var(--max));
+      border-radius: 13px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+    .search-tabs { display: flex; margin-left: 0; width: 300px; }
+    .search-tab {
+      width: 50%;
+      min-height: 45px;
+      border: 0;
+      background: #f0f1f3;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .search-tab:first-child { border-radius: 11px 11px 0 0; }
+    .search-tab:last-child { border-radius: 11px 11px 0 0; }
+    .search-tab.active { color: #fff; background: var(--red); }
+    .search-form {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr auto;
+      gap: 15px;
+      padding: 17px 18px;
+      color: var(--ink);
+      background: #fff;
+      border-radius: 0 13px 13px 13px;
+    }
+    .field label { display: block; margin: 0 0 5px 4px; font-size: 12px; font-weight: 800; }
+    .control { position: relative; }
+    .control span { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #59606b; }
+    .control input, .control select {
+      width: 100%;
+      height: 48px;
+      padding: 0 13px 0 38px;
+      border: 1px solid #dfe2e7;
+      border-radius: 8px;
+      color: #4b515c;
+      background: #fff;
+      outline: none;
+    }
+    .control input:focus, .control select:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(237,23,31,.11); }
+    .search-submit { align-self: end; height: 48px; min-width: 175px; }
+
+    /* Marketplace */
+    .marketplace { padding: 118px 0 52px; background: linear-gradient(#fff, #fafbfc); }
+    .row-title { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin: 0 0 14px; }
+    .row-title h2 { margin: 0; font-size: 27px; letter-spacing: -.03em; }
+    .row-title h2 span { color: var(--red); }
+    .view-link { color: #353a42; font-size: 13px; font-weight: 750; }
+    .view-link:hover { color: var(--red); }
+    .category-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 11px; }
+    .category-card {
+      position: relative;
+      min-height: 98px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,.035);
+    }
+    .category-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 42% 0 0;
+      background: var(--cat-img) center / cover no-repeat;
+      filter: saturate(.95);
+    }
+    .category-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 18%, #fff 60%); }
+    .category-card .copy { position: relative; z-index: 1; width: 58%; }
+    .category-card strong { display: block; font-size: 14px; }
+    .category-card small { color: var(--muted); font-size: 10px; }
+    .category-card .mini-arrow { position: absolute; z-index: 2; right: 8px; bottom: 8px; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--red); font-size: 12px; }
+
+    .brands { margin-top: 24px; }
+    .brand-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px; }
+    .brand-tile { min-height: 90px; display: grid; place-items: center; align-content: center; border: 1px solid var(--line); border-radius: 9px; background: #fff; text-align: center; }
+    .brand-mark { color: var(--brand-color, var(--red)); font-size: 19px; font-weight: 950; font-style: italic; letter-spacing: -.06em; }
+    .brand-tile small { margin-top: 5px; font-size: 10px; color: var(--muted); }
+
+    .featured { margin-top: 26px; }
+    .listing-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 1.45fr; gap: 12px; }
+    .bike-card { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; transition: transform .2s ease, box-shadow .2s ease; }
+    .bike-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .bike-photo { position: relative; height: 145px; overflow: hidden; background: #e9ebed; }
+    .bike-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .verified { position: absolute; left: 8px; top: 8px; padding: 4px 7px; border-radius: 5px; color: #fff; background: #009878; font-size: 10px; font-weight: 800; }
+    .heart { position: absolute; right: 8px; top: 8px; width: 31px; height: 31px; border: 0; border-radius: 50%; background: rgba(255,255,255,.93); cursor: pointer; font-size: 18px; }
+    .heart.active { color: #fff; background: var(--red); }
+    .bike-copy { min-height: 124px; display: flex; flex-direction: column; padding: 12px; }
+    .bike-copy h3 { margin: 0 0 6px; font-size: 16px; }
+    .bike-meta { display: flex; flex-wrap: wrap; gap: 7px; color: var(--muted); font-size: 10px; }
+    .bike-bottom { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: auto; padding-top: 12px; }
+    .price { flex: 1 1 auto; color: var(--red); font-size: 18px; font-weight: 900; white-space: nowrap; }
+    .detail-btn { flex: 0 0 auto; min-width: 88px; min-height: 34px; padding: 0 7px; border-radius: 6px; font-size: 10px; white-space: nowrap; }
+    .sell-card {
+      position: relative;
+      min-height: 250px;
+      padding: 24px;
+      border-radius: 12px;
+      color: #fff;
+      overflow: hidden;
+      background: linear-gradient(100deg, #0d0e12 0%, #181013 58%, #4a080c 100%);
+    }
+    .sell-card::after { content: ""; position: absolute; inset: 0 0 0 54%; background: linear-gradient(90deg, #181013, transparent 38%), url("assets/sell-rider.jpg") center / cover no-repeat; }
+    .sell-card > * { position: relative; z-index: 1; }
+    .sell-card h3 { margin: 0 0 13px; max-width: 220px; font-size: 30px; line-height: 1.08; }
+    .sell-list { display: grid; gap: 8px; margin: 0 0 18px; padding: 0; list-style: none; font-size: 12px; }
+    .sell-list li::before { content: "✓"; margin-right: 8px; color: var(--red); font-weight: 900; }
+
+    .benefit-strip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 11px; margin-top: 34px; }
+    .benefit { display: flex; align-items: center; gap: 11px; min-height: 80px; padding: 13px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .benefit-icon { flex: 0 0 auto; width: 45px; height: 45px; display: grid; place-items: center; border-radius: 50%; color: var(--red); background: #ffe9ea; font-size: 22px; }
+    .benefit strong { display: block; font-size: 13px; }
+    .benefit small { display: block; color: var(--muted); font-size: 10px; line-height: 1.35; }
+
+    .stats-band { color: #fff; background: radial-gradient(circle at 20% 100%, #651018 0%, #13171c 42%, #080a0d 100%); }
+    .stats-inner { min-height: 142px; display: grid; grid-template-columns: 1.4fr repeat(4, .75fr); gap: 14px; align-items: center; }
+    .stat-lead h2 { margin: 0; font-size: 25px; }
+    .stat-lead p { margin: 4px 0 0; color: #d0d3d7; }
+    .stat { padding: 15px 8px; border: 1px solid rgba(255,255,255,.2); border-radius: 10px; text-align: center; background: rgba(255,255,255,.025); }
+    .stat b { display: block; font-size: 22px; }
+    .stat small { color: #d5d8dc; }
+
+    /* Blog */
+    .blogs { position: relative; padding: 80px 0; background: #f8f9fa; overflow: hidden; }
+    .blogs::before, .blogs::after { content: ""; position: absolute; width: 280px; height: 280px; border-radius: 50%; border: 50px solid rgba(237,23,31,.035); }
+    .blogs::before { left: -150px; top: -100px; }
+    .blogs::after { right: -150px; bottom: -140px; }
+    .blog-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+    .blog-card { border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 7px 24px rgba(20,25,32,.06); }
+    .blog-card img { width: 100%; aspect-ratio: 1.52; object-fit: cover; }
+    .blog-copy { padding: 18px 20px 20px; }
+    .blog-copy h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.2; }
+    .blog-copy p { margin: 0; color: var(--muted); font-size: 14px; }
+    .read-more { display: inline-flex; gap: 10px; margin-top: 18px; color: var(--red); font-weight: 850; }
+    .center-action { margin-top: 28px; text-align: center; }
+
+    /* Testimonials */
+    .reviews { position: relative; padding: 78px 0 70px; background: linear-gradient(120deg, #fff 0%, #fff8f8 100%); overflow: hidden; }
+    .quote-mark { position: absolute; color: rgba(237,23,31,.08); font: 900 260px Georgia, serif; line-height: 1; }
+    .quote-mark.left { left: 25px; top: 40px; }
+    .quote-mark.right { right: 20px; bottom: -110px; transform: rotate(180deg); }
+    .review-viewport { overflow: hidden; }
+    .review-track { display: grid; grid-template-columns: repeat(4, minmax(280px, 1fr)); gap: 16px; transition: transform .35s ease; }
+    .review-card { min-height: 244px; display: grid; grid-template-columns: 1fr 110px; border: 1px solid #f0e9e9; border-radius: 14px; overflow: hidden; background: rgba(255,255,255,.94); box-shadow: 0 9px 25px rgba(25,20,20,.08); }
+    .review-copy { padding: 17px; }
+    .quotes { color: var(--red); font: 900 35px Georgia, serif; line-height: .7; }
+    .review-copy > p { margin: 7px 0 10px; color: #3e444d; font-size: 13px; line-height: 1.35; }
+    .stars { color: #ffc000; letter-spacing: 1px; }
+    .reviewer { margin-top: 9px; }
+    .reviewer strong { display: block; font-size: 13px; }
+    .reviewer small { color: var(--muted); font-size: 10px; }
+    .review-card > img { width: 100%; height: 100%; object-fit: cover; }
+    .slider-actions { display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 22px; }
+    .slide-btn { width: 42px; height: 42px; border: 0; border-radius: 50%; color: #fff; background: var(--red); cursor: pointer; font-size: 23px; }
+    .dots { display: flex; gap: 7px; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: #e0e1e4; }
+    .dot.active { width: 22px; border-radius: 9px; background: var(--red); }
+
+    /* Large feature grid */
+    .confidence { padding: 82px 0 88px; background: #fff; }
+    .confidence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .confidence-card { position: relative; min-height: 150px; display: flex; align-items: center; padding: 22px 48% 22px 20px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 6px 18px rgba(10,15,20,.04); }
+    .confidence-card::after { content: ""; position: absolute; inset: 0 0 0 51%; background: linear-gradient(90deg, #fff, transparent 35%), var(--feature-img) center / cover no-repeat; }
+    .confidence-icon { position: relative; z-index: 1; flex: 0 0 auto; width: 58px; height: 58px; display: grid; place-items: center; margin-right: 16px; border-radius: 50%; color: var(--red); background: #ffe5e6; font-size: 29px; }
+    .confidence-copy { position: relative; z-index: 1; }
+    .confidence-copy h3 { margin: 0 0 4px; font-size: 20px; white-space: nowrap; }
+    .confidence-copy p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+    .corner-arrow { position: absolute; z-index: 2; right: 12px; bottom: 12px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--red); background: #fff; box-shadow: 0 3px 12px rgba(0,0,0,.13); font-weight: 900; }
+
+    .closing-cta { padding: 58px 0; color: #fff; background: linear-gradient(125deg, #d90d15, #f5252d); }
+    .closing-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .closing-inner h2 { margin: 0; font-size: clamp(29px, 4vw, 48px); letter-spacing: -.04em; }
+    .closing-inner p { margin: 7px 0 0; color: #ffe8e9; font-size: 17px; }
+    .closing-inner .btn { color: var(--red); background: #fff; box-shadow: 0 10px 25px rgba(92,0,5,.2); }
+
+    footer { padding: 48px 0 26px; color: #d5d8dd; background: #0c0e11; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 45px; }
+    .footer-logo { display: inline-block; padding: 8px; border-radius: 8px; background: #fff; }
+    .footer-logo img { width: 190px; }
+    .footer-about p { max-width: 380px; color: #9ca2ac; font-size: 14px; }
+    .footer-col h3 { margin: 4px 0 13px; color: #fff; font-size: 15px; }
+    .footer-col a { display: block; margin: 8px 0; color: #9ca2ac; font-size: 13px; }
+    .footer-col a:hover { color: #fff; }
+    .copyright { margin-top: 34px; padding-top: 20px; border-top: 1px solid #262a30; color: #858c96; font-size: 12px; text-align: center; }
+    .toast { position: fixed; z-index: 100; left: 50%; bottom: 24px; transform: translate(-50%, 140%); padding: 13px 20px; border-radius: 9px; color: #fff; background: #11151a; box-shadow: var(--shadow); transition: transform .25s ease; }
+    .toast.show { transform: translate(-50%, 0); }
+
+    @media (max-width: 1120px) {
+      .main-nav { display: none; }
+      .menu-btn { display: block; margin-left: auto; }
+      .main-nav.open { position: absolute; display: grid; top: 74px; left: 20px; right: 20px; gap: 0; padding: 8px 18px; border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: var(--shadow); }
+      .main-nav.open a { padding: 12px 4px; }
+      .main-nav.open a.active::after { display: none; }
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+      .brand-grid { grid-template-columns: repeat(5, 1fr); }
+      .listing-grid { grid-template-columns: repeat(2, 1fr); }
+      .sell-card { grid-column: span 2; }
+      .benefit-strip { grid-template-columns: repeat(3, 1fr); }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+      .confidence-grid { grid-template-columns: repeat(2, 1fr); }
+      .review-viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+      .review-track { width: max-content; grid-template-columns: repeat(4, 330px); }
+      .review-card { scroll-snap-align: start; }
+    }
+
+    @media (max-width: 840px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .header-inner { min-height: 66px; }
+      .brand { width: 174px; }
+      .brand img { height: 50px; }
+      .header-actions .location, .header-actions .login { display: none; }
+      .header-sell { min-height: 38px; padding: 0 12px; font-size: 12px; }
+      .hero { min-height: 690px; }
+      .hero::after { inset: 0; background-position: 58% center; opacity: .64; }
+      .hero::before { background: linear-gradient(90deg, rgba(6,8,10,.94), rgba(6,8,10,.32)), linear-gradient(180deg, transparent 55%, rgba(0,0,0,.8)); }
+      .hero-content { padding-top: 42px; max-width: 600px; }
+      .hero h1 { font-size: clamp(45px, 12vw, 68px); }
+      .hero-sub { margin-left: 0; max-width: 440px; }
+      .search-shell { bottom: -235px; }
+      .search-tabs { width: 100%; }
+      .search-form { grid-template-columns: repeat(2, 1fr); border-radius: 0 0 13px 13px; }
+      .search-submit { width: 100%; grid-column: span 2; }
+      .marketplace { padding-top: 274px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); padding: 30px 0; }
+      .stat-lead { grid-column: span 2; text-align: center; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .eyebrow { font-size: 10px; letter-spacing: .2em; }
+      .eyebrow::before, .eyebrow::after { width: 28px; margin-inline: 8px; }
+      .section-heading { margin-bottom: 22px; }
+      .section-heading h2 { font-size: 34px; }
+      .section-heading p { font-size: 15px; }
+      .header-actions { gap: 8px; }
+      .header-sell { display: none; }
+      .hero { min-height: 735px; }
+      .hero-kicker { max-width: 280px; font-size: 10px; line-height: 1.7; }
+      .hero h1 { font-size: 48px; }
+      .trust-row { gap: 7px; }
+      .trust-chip { padding: 7px 9px; font-size: 11px; }
+      .trust-chip:nth-child(n+3) { display: none; }
+      .search-shell { bottom: -266px; }
+      .search-form { grid-template-columns: 1fr; gap: 11px; padding: 14px; }
+      .search-submit { grid-column: auto; }
+      .marketplace { padding-top: 305px; }
+      .row-title { align-items: center; }
+      .row-title h2 { font-size: 22px; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .category-card { min-height: 91px; }
+      .brand-grid { grid-template-columns: repeat(2, 1fr); }
+      .brand-tile:last-child { grid-column: span 2; }
+      .listing-grid { grid-template-columns: 1fr; }
+      .sell-card { grid-column: auto; }
+      .benefit-strip { grid-template-columns: 1fr 1fr; }
+      .benefit { display: block; text-align: center; }
+      .benefit-icon { margin: 0 auto 8px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blogs, .reviews, .confidence { padding: 58px 0; }
+      .review-track { grid-template-columns: repeat(4, 300px); }
+      .review-card { grid-template-columns: 1fr 92px; }
+      .confidence-grid { grid-template-columns: 1fr; }
+      .confidence-card { min-height: 160px; padding-right: 45%; }
+      .confidence-copy h3 { font-size: 17px; white-space: normal; }
+      .confidence-icon { width: 46px; height: 46px; font-size: 22px; margin-right: 10px; }
+      .closing-inner { display: block; text-align: center; }
+      .closing-inner .btn { margin-top: 22px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="K Bike Mart home"><img src="assets/brand-logo.jpg" alt="K Bike Mart — Ride Your Story"></a>
+      <nav class="main-nav" id="mainNav" aria-label="Primary navigation">
+        <a class="active" href="#top">⌂ Home</a>
+        <a href="#featured">Buy Bikes</a>
+        <a href="#sell">Sell Your Bike</a>
+        <a href="#brands">⇄ Compare</a>
+        <a href="#featured">Dealers</a>
+        <a href="#confidence">♦ About Us</a>
+        <a href="#footer">Contact Us</a>
+      </nav>
+      <div class="header-actions">
+        <span class="location">📍 Noida, UP⌄</span>
+        <a class="login" href="#footer">♟ Login / Register</a>
+        <a class="btn btn-primary header-sell" href="#sell">🏍 Sell Your Bike</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" type="button" aria-controls="mainNav" aria-expanded="false" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="container hero-content">
+        <p class="hero-kicker">India's Trusted Bike Marketplace</p>
+        <h1 id="heroTitle">Find Your <span>Perfect Ride</span></h1>
+        <p class="hero-sub">Buy and sell verified used bikes with confidence.</p>
+        <div class="trust-row" aria-label="Marketplace benefits">
+          <span class="trust-chip"><i class="trust-icon">✓</i> Verified Sellers</span>
+          <span class="trust-chip"><i class="trust-icon">▤</i> RC Verification</span>
+          <span class="trust-chip"><i class="trust-icon">◇</i> Best Deals</span>
+          <span class="trust-chip"><i class="trust-icon">▣</i> Safe &amp; Secure</span>
+        </div>
+      </div>
+
+      <div class="search-shell">
+        <div class="search-tabs" role="tablist" aria-label="Bike action">
+          <button class="search-tab active" type="button" role="tab" aria-selected="true" data-mode="buy">Buy Bikes</button>
+          <button class="search-tab" type="button" role="tab" aria-selected="false" data-mode="sell">Sell Your Bike</button>
+        </div>
+        <form class="search-form" id="bikeSearch">
+          <div class="field">
+            <label for="bikeName">Search Bike</label>
+            <div class="control"><span>⌕</span><input id="bikeName" name="bike" type="search" placeholder="e.g. Honda, Royal Enfield..."></div>
+          </div>
+          <div class="field">
+            <label for="location">Location</label>
+            <div class="control"><span>●</span><select id="location" name="location"><option value="">Select Location</option><option>Noida, UP</option><option>Delhi, DL</option><option>Ghaziabad, UP</option><option>Gurugram, HR</option></select></div>
+          </div>
+          <div class="field">
+            <label for="budget">Budget</label>
+            <div class="control"><span>₹</span><select id="budget" name="budget"><option value="">Select Budget</option><option>Under ₹75,000</option><option>₹75,000 – ₹1.5L</option><option>₹1.5L – ₹3L</option></select></div>
+          </div>
+          <div class="field">
+            <label for="bikeType">Bike Type</label>
+            <div class="control"><span>🏍</span><select id="bikeType" name="type"><option>All Types</option><option>Commuter</option><option>Sports</option><option>Cruiser</option><option>Scooter</option></select></div>
+          </div>
+          <button class="btn btn-primary search-submit" type="submit">⌕ <span id="searchLabel">Search Bikes</span></button>
+        </form>
+      </div>
+    </section>
+
+    <section class="marketplace" aria-label="Browse used bikes">
+      <div class="container">
+        <div class="row-title">
+          <h2>Browse Bikes by <span>Category</span></h2>
+          <a class="view-link" href="#featured">View All Categories &nbsp;→</a>
+        </div>
+        <div class="category-grid">
+          <a class="category-card" href="#featured" style="--cat-img:url('assets/bike-honda.jpg')"><span class="copy"><strong>Commuter</strong><small>Everyday Rides</small></span><i class="mini-arrow">›</i></a>
+          <a class="category-card" href="#featured" style="--cat-img:url('assets/bike-ktm.jpg')"><span class="copy"><strong>Sports</strong><small>High Performance</small></span><i class="mini-arrow">›</i></a>
+          <a class="category-card" href="#featured" style="--cat-img:url('assets/bike-royal-enfield.jpg')"><span class="copy"><strong>Cruiser</strong><small>Ride in Style</small></span><i class="mini-arrow">›</i></a>
+          <a class="category-card" href="#featured" style="--cat-img:url('assets/bike-tvs.jpg')"><span class="copy"><strong>Scooter</strong><small>Urban Mobility</small></span><i class="mini-arrow">›</i></a>
+          <a class="category-card" href="#featured" style="--cat-img:url('assets/bike-ktm.jpg')"><span class="copy"><strong>Touring</strong><small>Long Journeys</small></span><i class="mini-arrow">›</i></a>
+          <a class="category-card" href="#featured" style="--cat-img:url('assets/bike-tvs.jpg')"><span class="copy"><strong>Electric</strong><small>Sustainable Future</small></span><i class="mini-arrow">›</i></a>
+        </div>
+
+        <div class="brands" id="brands">
+          <div class="row-title">
+            <h2>Popular <span>Brands</span></h2>
+            <a class="view-link" href="#featured">View All Brands &nbsp;→</a>
+          </div>
+          <div class="brand-grid">
+            <div class="brand-tile"><b class="brand-mark">HONDA</b><small>1,250+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark">ROYAL<br>ENFIELD</b><small>950+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark">YAMAHA</b><small>830+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark" style="--brand-color:#1a408c">TVS</b><small>720+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark" style="--brand-color:#15569a">BAJAJ</b><small>680+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark">Hero</b><small>890+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark" style="--brand-color:#f06c00">KTM</b><small>420+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark" style="--brand-color:#145cbb">SUZUKI</b><small>510+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark" style="--brand-color:#111">Kawasaki</b><small>310+ Bikes</small></div>
+            <div class="brand-tile"><b class="brand-mark">aprilia</b><small>180+ Bikes</small></div>
+          </div>
+        </div>
+
+        <div class="featured" id="featured">
+          <div class="row-title">
+            <h2>Featured <span>Bikes</span></h2>
+            <a class="view-link" href="#featured">View All Bikes &nbsp;→</a>
+          </div>
+          <div class="listing-grid">
+            <article class="bike-card">
+              <div class="bike-photo"><img src="assets/bike-honda.jpg" alt="Black and red Honda Shine 125"><span class="verified">✓ Verified</span><button class="heart" type="button" aria-label="Save Honda Shine">♡</button></div>
+              <div class="bike-copy"><h3>Honda Shine 125</h3><div class="bike-meta"><span>▣ 2021</span><span>● 28,000 km</span><span>⌖ Noida, UP</span></div><div class="bike-bottom"><span class="price">₹72,000</span><button class="btn btn-outline detail-btn" type="button">View Details →</button></div></div>
+            </article>
+            <article class="bike-card">
+              <div class="bike-photo"><img src="assets/bike-royal-enfield.jpg" alt="Black Royal Enfield Classic 350"><span class="verified">✓ Verified</span><button class="heart" type="button" aria-label="Save Royal Enfield">♡</button></div>
+              <div class="bike-copy"><h3>Royal Enfield Classic 350</h3><div class="bike-meta"><span>▣ 2020</span><span>● 18,500 km</span><span>⌖ Ghaziabad, UP</span></div><div class="bike-bottom"><span class="price">₹1,45,000</span><button class="btn btn-outline detail-btn" type="button">View Details →</button></div></div>
+            </article>
+            <article class="bike-card">
+              <div class="bike-photo"><img src="assets/bike-ktm.jpg" alt="Orange KTM Duke 200"><span class="verified">✓ Verified</span><button class="heart" type="button" aria-label="Save KTM Duke">♡</button></div>
+              <div class="bike-copy"><h3>KTM Duke 200</h3><div class="bike-meta"><span>▣ 2022</span><span>● 12,000 km</span><span>⌖ Delhi, DL</span></div><div class="bike-bottom"><span class="price">₹1,80,000</span><button class="btn btn-outline detail-btn" type="button">View Details →</button></div></div>
+            </article>
+            <article class="bike-card">
+              <div class="bike-photo"><img src="assets/bike-tvs.jpg" alt="Blue TVS Jupiter 125"><span class="verified">✓ Verified</span><button class="heart" type="button" aria-label="Save TVS Jupiter">♡</button></div>
+              <div class="bike-copy"><h3>TVS Jupiter 125</h3><div class="bike-meta"><span>▣ 2022</span><span>● 6,800 km</span><span>⌖ Noida, UP</span></div><div class="bike-bottom"><span class="price">₹85,000</span><button class="btn btn-outline detail-btn" type="button">View Details →</button></div></div>
+            </article>
+            <aside class="sell-card" id="sell">
+              <h3>Want to Sell Your <span class="red">Bike?</span></h3>
+              <ul class="sell-list"><li>Get the right price for your bike</li><li>Connect with genuine buyers</li><li>Hassle-free selling experience</li></ul>
+              <button class="btn btn-primary" type="button">🏍 Sell Your Bike <span class="arrow">→</span></button>
+            </aside>
+          </div>
+        </div>
+
+        <div class="benefit-strip" aria-label="Why choose K Bike Mart">
+          <div class="benefit"><i class="benefit-icon">✓</i><span><strong>Verified Bikes</strong><small>From trusted sellers</small></span></div>
+          <div class="benefit"><i class="benefit-icon">▤</i><span><strong>RC Verification</strong><small>Check ownership easily</small></span></div>
+          <div class="benefit"><i class="benefit-icon">◈</i><span><strong>Insurance Check</strong><small>Know the insurance status</small></span></div>
+          <div class="benefit"><i class="benefit-icon">⚒</i><span><strong>Service History</strong><small>See complete service records</small></span></div>
+          <div class="benefit"><i class="benefit-icon">♟</i><span><strong>Trusted Sellers</strong><small>Deal with genuine people</small></span></div>
+          <div class="benefit"><i class="benefit-icon">▣</i><span><strong>Secure Transactions</strong><small>Your data stays protected</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-band" aria-label="Marketplace statistics">
+      <div class="container stats-inner">
+        <div class="stat-lead"><h2>Over <span class="red">10,000+</span> Verified Bikes</h2><p>Find, compare and buy your next bike with confidence.</p></div>
+        <div class="stat"><b>10,000+</b><small>Verified Listings</small></div>
+        <div class="stat"><b>5,000+</b><small>Happy Customers</small></div>
+        <div class="stat"><b>50+</b><small>Cities</small></div>
+        <div class="stat"><b>100%</b><small>Secure &amp; Safe</small></div>
+      </div>
+    </section>
+
+    <section class="blogs" id="blogs">
+      <div class="container">
+        <header class="section-heading">
+          <p class="eyebrow">Our Blogs</p>
+          <h2>Latest Bike <span class="red">News, Tips &amp; Guides</span></h2>
+          <p>Stay updated with expert tips, buying guides, maintenance advice and the latest news from the world of bikes.</p>
+        </header>
+        <div class="blog-grid">
+          <article class="blog-card"><img src="assets/blog-buying.jpg" alt="Sports bike at sunset"><div class="blog-copy"><h3>Top Things to Check Before Buying a Used Bike</h3><p>From RC and insurance to engine condition, here are the checks that matter most.</p><a class="read-more" href="#blogs">Read More <span>→</span></a></div></article>
+          <article class="blog-card"><img src="assets/blog-maintenance.jpg" alt="Mechanic servicing a motorcycle"><div class="blog-copy"><h3>Essential Bike Maintenance Tips for a Long Ride</h3><p>Simple maintenance habits that keep your bike smooth, safe and dependable.</p><a class="read-more" href="#blogs">Read More <span>→</span></a></div></article>
+          <article class="blog-card"><img src="assets/blog-comparison.jpg" alt="Motorcycles lined up for comparison"><div class="blog-copy"><h3>Best 150cc Bikes in India — Complete Comparison</h3><p>Compare mileage, features, pricing and performance before choosing your ride.</p><a class="read-more" href="#blogs">Read More <span>→</span></a></div></article>
+          <article class="blog-card"><img src="assets/blog-insurance.jpg" alt="Motorcycle insurance document"><div class="blog-copy"><h3>Bike Insurance Guide — Everything You Need to Know</h3><p>Understand insurance options, benefits and how to choose the right plan.</p><a class="read-more" href="#blogs">Read More <span>→</span></a></div></article>
+        </div>
+        <div class="center-action"><a class="btn btn-primary" href="#blogs">View All Blogs <span class="arrow">→</span></a></div>
+      </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+      <span class="quote-mark left" aria-hidden="true">“</span><span class="quote-mark right" aria-hidden="true">“</span>
+      <div class="container">
+        <header class="section-heading"><p class="eyebrow">Our Customers</p><h2>What Our Users <span class="red">Say</span></h2><p>Real experiences from bike buyers and sellers who trust us.</p></header>
+        <div class="review-viewport" id="reviewViewport">
+          <div class="review-track" id="reviewTrack">
+            <article class="review-card"><div class="review-copy"><span class="quotes">“</span><p>Great platform to buy used bikes! I found a verified seller and got my dream bike in excellent condition. The process was smooth and transparent.</p><div class="stars" aria-label="5 stars">★★★★★</div><div class="reviewer"><strong>Rohit Sharma</strong><small>⌖ Noida, UP</small></div></div><img src="assets/customer-rohit.jpg" alt="Rohit Sharma with his bike"></article>
+            <article class="review-card"><div class="review-copy"><span class="quotes">“</span><p>As a seller, I got genuine buyers and sold my bike at a good price within a few days. The verification process gave me confidence.</p><div class="stars" aria-label="5 stars">★★★★★</div><div class="reviewer"><strong>Priya Verma</strong><small>⌖ Delhi, DL</small></div></div><img src="assets/customer-priya.jpg" alt="Priya Verma with her scooter"></article>
+            <article class="review-card"><div class="review-copy"><span class="quotes">“</span><p>I could check RC, insurance and service history before buying. It made the entire experience safe and hassle-free.</p><div class="stars" aria-label="5 stars">★★★★★</div><div class="reviewer"><strong>Amit Malhotra</strong><small>⌖ Ghaziabad, UP</small></div></div><img src="assets/customer-amit.jpg" alt="Amit Malhotra with his bike"></article>
+            <article class="review-card"><div class="review-copy"><span class="quotes">“</span><p>The direct chat with sellers made it easy to ask questions and get the right deal. Highly recommended!</p><div class="stars" aria-label="5 stars">★★★★★</div><div class="reviewer"><strong>Vikas Yadav</strong><small>⌖ Greater Noida, UP</small></div></div><img src="assets/customer-vikas.jpg" alt="Vikas Yadav with his bike"></article>
+          </div>
+        </div>
+        <div class="slider-actions"><button class="slide-btn" id="reviewPrev" type="button" aria-label="Previous review">‹</button><div class="dots" aria-hidden="true"><i class="dot active"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div><button class="slide-btn" id="reviewNext" type="button" aria-label="Next review">›</button></div>
+        <div class="center-action"><a class="btn btn-primary" href="#reviews">View All Reviews <span class="arrow">→</span></a></div>
+      </div>
+    </section>
+
+    <section class="confidence" id="confidence">
+      <div class="container">
+        <header class="section-heading"><p class="eyebrow">Why Choose Us</p><h2>Buy &amp; Sell With <span class="red">Confidence</span></h2><p>Everything you need to make buying and selling used bikes easier, clearer and more secure.</p></header>
+        <div class="confidence-grid">
+          <article class="confidence-card" style="--feature-img:url('assets/feature-seller.jpg')"><i class="confidence-icon">✓</i><div class="confidence-copy"><h3>Verified Sellers</h3><p>Connect with genuine sellers and real bike listings.</p></div><span class="corner-arrow">→</span></article>
+          <article class="confidence-card" style="--feature-img:url('assets/feature-rc.jpg')"><i class="confidence-icon">▤</i><div class="confidence-copy"><h3>RC &amp; Ownership</h3><p>View important ownership and RC details before buying.</p></div><span class="corner-arrow">→</span></article>
+          <article class="confidence-card" style="--feature-img:url('assets/feature-insurance.jpg')"><i class="confidence-icon">☂</i><div class="confidence-copy"><h3>Insurance Details</h3><p>Know the bike's insurance status before your decision.</p></div><span class="corner-arrow">→</span></article>
+          <article class="confidence-card" style="--feature-img:url('assets/feature-service.jpg')"><i class="confidence-icon">⚒</i><div class="confidence-copy"><h3>Service History</h3><p>Get useful service information to understand the bike.</p></div><span class="corner-arrow">→</span></article>
+          <article class="confidence-card" style="--feature-img:url('assets/feature-map.jpg')"><i class="confidence-icon">●</i><div class="confidence-copy"><h3>Find Bikes Nearby</h3><p>Discover bikes available in your city and nearby areas.</p></div><span class="corner-arrow">→</span></article>
+          <article class="confidence-card" style="--feature-img:url('assets/feature-chat.jpg')"><i class="confidence-icon">●</i><div class="confidence-copy"><h3>Direct Seller Chat</h3><p>Talk directly with sellers and discuss the bike with ease.</p></div><span class="corner-arrow">→</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing-cta">
+      <div class="container closing-inner"><div><h2>Your next ride is waiting.</h2><p>Browse verified bikes or list yours in just a few simple steps.</p></div><a class="btn" href="#featured">Explore Bikes <span class="arrow">→</span></a></div>
+    </section>
+  </main>
+
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about"><a class="footer-logo" href="#top"><img src="assets/brand-logo.jpg" alt="K Bike Mart"></a><p>India's trusted marketplace for buying and selling quality used bikes with confidence.</p></div>
+        <div class="footer-col"><h3>Buy</h3><a href="#featured">Featured Bikes</a><a href="#brands">Popular Brands</a><a href="#blogs">Buying Guides</a></div>
+        <div class="footer-col"><h3>Sell</h3><a href="#sell">Sell Your Bike</a><a href="#confidence">Why Choose Us</a><a href="#reviews">Customer Stories</a></div>
+        <div class="footer-col"><h3>Help</h3><a href="#footer">Contact Us</a><a href="#footer">Privacy Policy</a><a href="#footer">Terms &amp; Conditions</a></div>
+      </div>
+      <div class="copyright">© 2026 K Bike Mart. All rights reserved. Demo interface recreated from the supplied design references.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const menuButton = document.querySelector('#menuBtn');
+    const navigation = document.querySelector('#mainNav');
+    menuButton.addEventListener('click', () => {
+      const open = navigation.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.textContent = open ? '×' : '☰';
+    });
+    navigation.addEventListener('click', () => {
+      navigation.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.textContent = '☰';
+    });
+
+    const tabs = [...document.querySelectorAll('.search-tab')];
+    const searchLabel = document.querySelector('#searchLabel');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(item => {
+        const selected = item === tab;
+        item.classList.toggle('active', selected);
+        item.setAttribute('aria-selected', String(selected));
+      });
+      searchLabel.textContent = tab.dataset.mode === 'sell' ? 'Get Bike Value' : 'Search Bikes';
+    }));
+
+    const toast = document.querySelector('#toast');
+    let toastTimer;
+    function notify(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelector('#bikeSearch').addEventListener('submit', event => {
+      event.preventDefault();
+      const sellMode = document.querySelector('.search-tab.active').dataset.mode === 'sell';
+      notify(sellMode ? 'Bike valuation form is ready for the next step.' : 'Matching verified bikes found — demo search complete.');
+    });
+    document.querySelectorAll('.detail-btn, .sell-card .btn').forEach(button => button.addEventListener('click', () => notify('Demo action selected. Connect this button to your backend or listing page.')));
+    document.querySelectorAll('.heart').forEach(button => button.addEventListener('click', () => {
+      button.classList.toggle('active');
+      button.textContent = button.classList.contains('active') ? '♥' : '♡';
+    }));
+
+    const viewport = document.querySelector('#reviewViewport');
+    const dots = [...document.querySelectorAll('.dot')];
+    let reviewIndex = 0;
+    function moveReviews(direction) {
+      reviewIndex = Math.max(0, Math.min(3, reviewIndex + direction));
+      const card = document.querySelector('.review-card');
+      viewport.scrollTo({ left: reviewIndex * (card.offsetWidth + 16), behavior: 'smooth' });
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === reviewIndex));
+    }
+    document.querySelector('#reviewPrev').addEventListener('click', () => moveReviews(-1));
+    document.querySelector('#reviewNext').addEventListener('click', () => moveReviews(1));
+  </script>
+</body>
+</html>
